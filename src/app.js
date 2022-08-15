@@ -15,7 +15,6 @@ app.use(cors())
 
 
 require('./routes')(app)
-app.use(express.static(path.join(__dirname, '../beesys/dist')));
 
 sequelize.sync({force:false})
   .then(() => {
