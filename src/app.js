@@ -21,6 +21,6 @@ sequelize.sync({force:false})
   try{
     app.listen(config.port)
     console.log(`Server started on port ${config.port}`)
-  }catch(err){
+  }catch(err){}
     
   })
