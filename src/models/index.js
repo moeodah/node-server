@@ -5,15 +5,13 @@ const config = require('../config/config')
 const db = {}
 
 const sequelize = new Sequelize(
-  'employees',
-  'root',
-  'Geniune9',
+  'defaultdb',
+  'doadmin',
+  'AVNS_v-9sgkqPx73qNL1O8G4',
   { 
-    dialect:'mysql'},
-  config.db.database,
-  config.db.user,
-  config.db.password,
-  config.db.options
+    host:'beez-employees-do-user-12201662-0.b.db.ondigitalocean.com',
+    port:'25060'
+    dialect:'mysql'}
 )
 
 sequelize.authenticate().then(() => {
