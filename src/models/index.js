@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
   'AVNS_v-9sgkqPx73qNL1O8G4',
   { 
     host:'beez-employees-do-user-12201662-0.b.db.ondigitalocean.com',
-    port:'25060'
+    port:'25060',
     dialect:'mysql'}
 )
 
