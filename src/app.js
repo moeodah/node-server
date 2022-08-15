@@ -20,6 +20,6 @@ sequelize.sync({force:false})
   .then(() => {
     app.listen(config.port)
     console.log(`Server started on port ${config.port}`)
-  })catch((err) => {
-    
-  })
+  }).catch((err) => {
+    console.log("something is wrong")
+  });
