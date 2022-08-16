@@ -11,7 +11,8 @@ const sequelize = new Sequelize(
   { 
     host:'beez-employees-do-user-12201662-0.b.db.ondigitalocean.com',
     port:'25060',
-    dialect:'mysql'}
+    dialect:'mysql'
+  }
 )
 
 sequelize.authenticate().then(() => {
