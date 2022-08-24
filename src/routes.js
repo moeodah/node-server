@@ -14,6 +14,8 @@ module.exports = (app) => {
     app.post('/login',
     AuthenticationController.login)
 
+    app.get('/login',
+    AuthenticationController.index)
     // employees //
     app.post('/employees',
     EmployeeController.post)

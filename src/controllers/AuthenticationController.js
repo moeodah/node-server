@@ -1,4 +1,5 @@
 const {User} = require('../models')
+const {Employee} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -10,6 +11,18 @@ function jwtSignUser (user) {
 }
 
 module.exports = {
+  async index (req, res) {
+    try {
+      const user =await User.findAll({
+        limit:100
+      })
+      res.send(user)
+    } catch (err) {
+      res.status(500).send({
+        error: 'Error Fetching'
+      })
+    }
+  },
   async register (req, res) {
     try {
       const user = await User.create(req.body)
@@ -27,19 +40,19 @@ module.exports = {
   async login (req, res) {
     try {
       const {email, password} = req.body
-      const user = await User.findOne({
+      const user = await Employee.findOne({
         where: {
           email: email
         }
       })
-
       if (!user) {
         return res.status(403).send({
           error: 'The login information was incorrect'
         })
       }
 
-      const isPasswordValid = await user.comparePassword(password)
+      const isPasswordValid = (password == user.password)
+      console.log('is the password valid' ,isPasswordValid)
       if (!isPasswordValid) {
         return res.status(403).send({
           error: 'The login information was incorrect'

@@ -1,5 +1,13 @@
 const {Employee} = require('../models')
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
 
+function jwtSignUser (user) {
+  const ONE_WEEK = 60 * 60 * 24 * 7
+  return jwt.sign(user, config.authentication.jwtSecret, {
+    expiresIn: ONE_WEEK
+  })
+}
 
 module.exports = {
   async index (req, res) {
@@ -41,12 +49,13 @@ module.exports = {
       const employee =await Employee.create(req.body)
       const employeeJson = employee.toJSON()
       res.send({
-        employee:employeeJson
+        employee:employeeJson,
+        token: jwtSignUser(employeeJson)
       })
     } catch (err) {
       res.status(500).send({
         error: 'WRONG'
       })
     }
-  }
+  },
 }
