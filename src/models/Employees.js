@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       salary:DataTypes.STRING,
       Martial:DataTypes.STRING,
       nationality:DataTypes.STRING,
+      securityLevel:DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
         unique: true

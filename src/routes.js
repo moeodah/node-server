@@ -4,7 +4,7 @@ const ShiftController = require('./controllers/ShiftController')
 const CarController = require('./controllers/CarController')
 const InfluencerController = require('./controllers/InfluencerController')
 const ProductController = require('./controllers/ProductController')
-
+const ApplicationController = require('./controllers/ApplicationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 module.exports = (app) => {
     app.post('/register' ,
@@ -87,7 +87,19 @@ module.exports = (app) => {
     app.delete('/products/:productId',
     ProductController.kill)
 
+    // Applications //
 
+    app.post('/applications',
+    ApplicationController.post)
+
+    app.get('/applications',
+    ApplicationController.index)
+
+    app.get('/applications/:applicationId',
+    ApplicationController.show)
+
+    app.delete('/applications/:applicationId',
+    ApplicationController.kill)
 
     app.get('/', (req,res) => {
       res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
