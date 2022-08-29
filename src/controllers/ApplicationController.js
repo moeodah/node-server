@@ -18,7 +18,7 @@ module.exports = {
   async show (req, res) {
     try {
 
-      const applications = await Applications.findByPk(req.params.applicationsId)
+      const applications = await Applications.findByPk(req.params.applicationId)
 
       res.send(applications)
     } catch (err) {
@@ -46,6 +46,20 @@ module.exports = {
     } catch (err) {
       res.status(300).send({
         error: 'WRONG'
+      })
+    }
+  },
+  async put (req, res) {
+    try {
+      await Applications.update(req.body, {
+        where: {
+          id: req.params.applicationId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to update the application'
       })
     }
   }

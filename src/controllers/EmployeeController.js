@@ -30,7 +30,7 @@ module.exports = {
       res.send(employee)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the songs'
+        error: 'an error has occured trying to show the employee'
       })
     }
   },
