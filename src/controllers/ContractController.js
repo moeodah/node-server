@@ -1,13 +1,13 @@
-const {Influencer} = require('../models')
+const {Contract} = require('../models')
 
 
 module.exports = {
   async index (req, res) {
     try {
-      const influencer =await Influencer.findAll({
+      const contract =await Contract.findAll({
         limit:100
       })
-      res.send(influencer)
+      res.send(contract)
     } catch (err) {
       res.status(500).send({
         error: 'Error Fetching'
@@ -18,9 +18,9 @@ module.exports = {
   async show (req, res) {
     try {
 
-      const influencer = await Influencer.findByPk(req.params.influencerId)
+      const contract = await Contract.findByPk(req.params.contractId)
 
-      res.send(influencer)
+      res.send(contract)
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to show the songs'
@@ -29,8 +29,8 @@ module.exports = {
   },
   async kill (req,res){
     try{
-      const influencer = await Influencer.findByPk(req.params.influencerId)
-      influencer.destroy();
+      const contract = await Contract.findByPk(req.params.contractId)
+      contract.destroy();
 
     }catch(err){
       error:'No employee to delete'
@@ -38,10 +38,10 @@ module.exports = {
   },
   async post (req, res) {
     try {
-      const influencer =await Influencer.create(req.body)
-      const influencerJson = influencer.toJSON()
+      const contract =await Contract.create(req.body)
+      const contractJson = contract.toJSON()
       res.send({
-        influencer:influencerJson
+        contract:contractJson
       })
     } catch (err) {
       res.status(500).send({

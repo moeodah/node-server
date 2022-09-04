@@ -6,6 +6,8 @@ const InfluencerController = require('./controllers/InfluencerController')
 const ProductController = require('./controllers/ProductController')
 const ApplicationController = require('./controllers/ApplicationController')
 const MemoController = require('./controllers/MemoController')
+const ContractController = require('./controllers/ContractController')
+const EventController = require('./controllers/EventController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 module.exports = (app) => {
     app.post('/register' ,
@@ -123,7 +125,34 @@ module.exports = (app) => {
     // app.put('/memos/:memoId',
     // MemoController.put)
 
+    //  contracts //
 
+    
+    app.post('/contracts',
+    ContractController.post)
+
+    app.get('/contracts',
+    ContractController.index)
+
+    app.get('/contracts/:contractId',
+    ContractController.show)
+
+    app.delete('/contracts/:contractId',
+    ContractController.kill)
+
+    //  Events //
+
+    app.post('/events',
+    EventController.post)
+
+    app.get('/events',
+    EventController.index)
+
+    app.get('/events/:eventId',
+    EventController.show)
+
+    app.delete('/events/:eventId',
+    EventController.kill)
     app.get('/', (req,res) => {
       res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
     });
