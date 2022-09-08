@@ -21,18 +21,6 @@ module.exports = (sequelize, DataTypes) => {
         boxLength: DataTypes.STRING,
         boxWidth: DataTypes.STRING,
         addedBy: DataTypes.STRING,
-        productTap1:DataTypes.STRING,
-        productTap2:DataTypes.STRING,
-        productTap3:DataTypes.STRING,
-        productTap4:DataTypes.STRING,
-        productTap5:DataTypes.STRING,
-        productTap6:DataTypes.STRING,
-        productTap7:DataTypes.STRING,
-        productTap8:DataTypes.STRING,
-        productTap9:DataTypes.STRING,
-        productTap10:DataTypes.STRING,
-        productTap11:DataTypes.STRING,
-        productTap12:DataTypes.STRING,
         
     })
     return Product

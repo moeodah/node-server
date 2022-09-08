@@ -19,6 +19,7 @@ function hashPassword (user, options) {
 module.exports = (sequelize, DataTypes) => {
   const Employee = sequelize.define('Employee', {
       name: DataTypes.STRING,
+      newEmp: DataTypes.STRING,
       gender:DataTypes.STRING,
       education:DataTypes.STRING,
       email1:DataTypes.STRING,
@@ -43,18 +44,6 @@ module.exports = (sequelize, DataTypes) => {
       nationality:DataTypes.STRING,
       securityLevel:DataTypes.STRING,
       category:DataTypes.STRING,
-      employeeTap1:DataTypes.STRING,
-      employeeTap2:DataTypes.STRING,
-      employeeTap3:DataTypes.STRING,
-      employeeTap4:DataTypes.STRING,
-      employeeTap5:DataTypes.STRING,
-      employeeTap6:DataTypes.STRING,
-      employeeTap7:DataTypes.STRING,
-      employeeTap8:DataTypes.STRING,
-      employeeTap9:DataTypes.STRING,
-      employeeTap10:DataTypes.STRING,
-      employeeTap11:DataTypes.STRING,
-      employeeTap12:DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
         unique: true

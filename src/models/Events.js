@@ -14,18 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         visitors: DataTypes.STRING,
         addedBy: DataTypes.STRING,
         comments: DataTypes.STRING,
-        eventTap1:DataTypes.STRING,
-        eventTap2:DataTypes.STRING,
-        eventTap3:DataTypes.STRING,
-        eventTap4:DataTypes.STRING,
-        eventTap5:DataTypes.STRING,
-        eventTap6:DataTypes.STRING,
-        eventTap7:DataTypes.STRING,
-        eventTap8:DataTypes.STRING,
-        eventTap9:DataTypes.STRING,
-        eventTap10:DataTypes.STRING,
-        eventTap11:DataTypes.STRING,
-        eventTap12:DataTypes.STRING,
     })
     return Event
   }
