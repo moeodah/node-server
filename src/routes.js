@@ -8,6 +8,7 @@ const ApplicationController = require('./controllers/ApplicationController')
 const MemoController = require('./controllers/MemoController')
 const ContractController = require('./controllers/ContractController')
 const EventController = require('./controllers/EventController')
+const MilageController = require('./controllers/MilageController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 module.exports = (app) => {
     app.post('/register' ,
@@ -153,6 +154,23 @@ module.exports = (app) => {
 
     app.delete('/events/:eventId',
     EventController.kill)
+
+
+    // Milages //
+
+    app.post('/Milages',
+    MilageController.post)
+
+    app.get('/Milages',
+    MilageController.index)
+
+    app.get('/Milages/:milageId',
+    MilageController.show)
+
+    app.delete('/Milages/:milageId',
+    MilageController.kill)
+
+    //---------------//
     app.get('/', (req,res) => {
       res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
     });
