@@ -11,6 +11,13 @@ const EventController = require('./controllers/EventController')
 const MilageController = require('./controllers/MilageController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const UploadsController = require('./controllers/UploadsController')
+const sharp = require('sharp')
+const fs = require('fs')
+const path = require('path')
+const multer = require('multer')
+const express = require('express')
+const stream = require('stream')
+
 module.exports = (app) => {
     app.post('/register' ,
     AuthenticationControllerPolicy.register,
@@ -175,8 +182,47 @@ module.exports = (app) => {
 
     //   uploads  //
 
-    app.post('/uploads',UploadsController.upload.single('file'),UploadsController.post)
+    app.use('/static',express.static(path.join(__dirname,"static")))
+
+    const storage = multer.diskStorage({
+      destination: './uploads/',
+      filename: function (req, file, cb) {
+        console.log(file)
+        cb(null,file.originalname)
+      }
+    })
+    const upload = multer ({storage:storage})
+    app.post('/Uploads',upload.single('file'),async (req, res) => {
+      try {
+        console.log(req.body.Name)
+        res.send({
+          file: req.file
+        })
+      } catch (err) {
+        res.status(500).send({
+          error: 'WRONG'
+        })
+      }
+    })
+  
     
+    app.get('/Uploads/:uploadFile', async (req,res) => {
+      const r = fs.createReadStream(`uploads/${req.params.uploadFile}`) // or any other way to get a readable stream
+      console.log('----------------------',req.params.uploadFile)
+      const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
+      stream.pipeline(
+      r,
+      ps, // <---- this makes a trick with stream error handling
+      (err) => {
+        if (err) {
+          console.log(err) // No such file or any other kind of error
+          return res.sendStatus(400); 
+        }
+      })
+      ps.pipe(res) // <---- this makes a trick with stream error handling
+
+    })
+
     app.get('/', (req,res) => {
       res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
     });

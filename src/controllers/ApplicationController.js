@@ -29,7 +29,7 @@ module.exports = {
   },
   async kill (req,res){
     try{
-      const applications = await Applications.findByPk(req.params.applicationsId)
+      const applications = await Applications.findByPk(req.params.applicationId)
       applications.destroy();
 
     }catch(err){

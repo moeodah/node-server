@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Uploads = sequelize.define('Uploads', {
-        fileName: DataTypes.STRING,
+        file: DataTypes.BLOB,
     })
     return Uploads
   }

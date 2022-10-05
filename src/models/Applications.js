@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         todayDate:DataTypes.DATE,
         reason:DataTypes.STRING,
         status:DataTypes.STRING,
-        uploads:DataTypes.BLOB,
+        uploads:DataTypes.STRING,
     })
     return Applications
   }
