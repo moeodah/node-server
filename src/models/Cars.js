@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         oula: DataTypes.STRING,
         employee: DataTypes.STRING,
         milage: DataTypes.STRING,
+        addedBy: DataTypes.STRING,
     })
     return Car
   }

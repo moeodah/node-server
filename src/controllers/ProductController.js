@@ -48,5 +48,19 @@ module.exports = {
         error: 'WRONG'
       })
     }
-  }
+  },
+  async put (req, res) {
+    try {
+      await Product.update(req.body, {
+        where: {
+          id: req.params.productId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to update the Car'
+      })
+    }
+  },
 }

@@ -5,6 +5,7 @@ function hashPassword (user, options) {
   const SALT_FACTOR = 8
 
   if (!user.changed('password')) {
+    console.log('Changed')
     return
   }
 

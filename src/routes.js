@@ -39,6 +39,9 @@ module.exports = (app) => {
     app.delete('/employees/:employeeId',
     EmployeeController.kill)
 
+    app.put('/employees/:employeeId',
+    EmployeeController.put)
+
     // shifts //
 
     app.post('/shifts',
@@ -66,6 +69,9 @@ module.exports = (app) => {
 
     app.delete('/cars/:carId',
     CarController.kill)
+
+    app.put('/cars/:carId',
+    CarController.put)
 
     // Influencers //
 
@@ -96,6 +102,10 @@ module.exports = (app) => {
 
     app.delete('/products/:productId',
     ProductController.kill)
+
+    app.put('/products/:productId',
+    ProductController.put)
+
 
     // Applications //
 

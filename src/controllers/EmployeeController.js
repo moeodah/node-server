@@ -57,4 +57,21 @@ module.exports = {
       })
     }
   },
+  async put (req, res) {
+    try {
+      console.log('------------------------------------')
+      console.log(req.body)
+      console.log('************************************')
+      await Employee.update(req.body, {
+        where: {
+          id: req.params.employeeId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to update the song'
+      })
+    }
+  },
 }
