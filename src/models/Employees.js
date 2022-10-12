@@ -45,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
       nationality:DataTypes.STRING,
       securityLevel:DataTypes.STRING,
       category:DataTypes.STRING,
+      file:DataTypes.BLOB,
+      civilIdUpload:DataTypes.STRING,
+      driverLicenceUpload:DataTypes.STRING,
+      passportUpload:DataTypes.STRING,
+      workPermitUpload:DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
         unique: true

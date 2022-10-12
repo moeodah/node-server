@@ -42,6 +42,52 @@ module.exports = (app) => {
     app.put('/employees/:employeeId',
     EmployeeController.put)
 
+    const EmployeeStorage = multer.diskStorage({
+      destination: './employees/',
+      filename: function (req, file, cb) {
+        console.log(file)
+        cb(null,file.originalname)
+      }
+    })
+    const employeeUpload = multer ({storage:EmployeeStorage})
+
+    app.post('/EmployeesUploads',employeeUpload.single('file'),async (req, res) => {
+
+      
+      try {
+        console.log(req.body.Name)
+        res.send({
+          file: req.file
+        })
+      } catch (err) {
+        res.status(500).send({
+          error: 'WRONG'
+        })
+      }
+    })
+   
+    app.get('/EmployeesUploads/:uploadFile', async (req,res) => {
+      const r = fs.createReadStream(`employees/${req.params.uploadFile}`) // or any other way to get a readable stream
+      console.log('----------------------',req.params.uploadFile)
+      const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
+      stream.pipeline(
+      r,
+      ps, // <---- this makes a trick with stream error handling
+      (err) => {
+        if (err) {
+          console.log(err) // No such file or any other kind of error
+          return res.sendStatus(400); 
+        }
+      })
+      ps.pipe(res) // <---- this makes a trick with stream error handling
+
+    })
+
+    app.get('/', (req,res) => {
+      res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
+    });
+
+
     // shifts //
 
     app.post('/shifts',
@@ -192,15 +238,19 @@ module.exports = (app) => {
 
     app.use('/static',express.static(path.join(__dirname,"static")))
 
-    const storage = multer.diskStorage({
-      destination: './uploads/',
-      filename: function (req, file, cb) {
-        console.log(file)
-        cb(null,file.originalname)
-      }
-    })
-    const upload = multer ({storage:storage})
+
+      const storage = multer.diskStorage({
+        destination: './uploads/',
+        filename: function (req, file, cb) {
+          console.log('=====',file)
+          cb(null,file.originalname)
+        }
+      })
+      const upload = multer ({storage:storage})
+
     app.post('/Uploads',upload.single('file'),async (req, res) => {
+
+      
       try {
         console.log(req.body.Name)
         res.send({
