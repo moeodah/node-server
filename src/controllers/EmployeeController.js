@@ -1,19 +1,7 @@
 const {Employee} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
-const fs = require('fs')
-const path = require('path')
-const multer = require('multer')
-const express = require('express')
-const stream = require('stream')
-const EmployeeStorage = multer.diskStorage({
-  destination: './Employees/',
-  filename: function (req, file, cb) {
-    console.log(file)
-    cb(null,file.originalname)
-  }
-})
-const employeeUpload = multer ({storage:EmployeeStorage})
+
 function jwtSignUser (user) {
   const ONE_WEEK = 60 * 60 * 24 * 7
   return jwt.sign(user, config.authentication.jwtSecret, {
