@@ -10,6 +10,8 @@ const ContractController = require('./controllers/ContractController')
 const EventController = require('./controllers/EventController')
 const MilageController = require('./controllers/MilageController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
+const DocumentController = require('./controllers/DocumentController')
+const DocCategoryController = require('./controllers/DocCategoryController')
 const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
@@ -119,6 +121,47 @@ module.exports = (app) => {
     app.put('/cars/:carId',
     CarController.put)
 
+    
+    const CarStorage = multer.diskStorage({
+      destination: './cars/',
+      filename: function (req, file, cb) {
+        console.log(file)
+        cb(null,file.originalname)
+      }
+    })
+    const carUpload = multer ({storage:CarStorage})
+
+    app.post('/CarsUploads',carUpload.single('file'),async (req, res) => {
+
+      
+      try {
+        console.log(req.body.Name)
+        res.send({
+          file: req.file
+        })
+      } catch (err) {
+        res.status(500).send({
+          error: 'WRONG'
+        })
+      }
+    })
+   
+    app.get('/CarsUploads/:uploadFile', async (req,res) => {
+      const r = fs.createReadStream(`cars/${req.params.uploadFile}`) // or any other way to get a readable stream
+      console.log('----------------------',req.params.uploadFile)
+      const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
+      stream.pipeline(
+      r,
+      ps, // <---- this makes a trick with stream error handling
+      (err) => {
+        if (err) {
+          console.log(err) // No such file or any other kind of error
+          return res.sendStatus(400); 
+        }
+      })
+      ps.pipe(res) // <---- this makes a trick with stream error handling
+
+    })
     // Influencers //
 
     app.post('/influencers',
@@ -133,7 +176,8 @@ module.exports = (app) => {
     app.delete('/influencers/:influencerId',
     InfluencerController.kill)
 
-
+    app.put('/influencers/:influencerId',
+    InfluencerController.put)
     // Products//
 
     
@@ -234,6 +278,19 @@ module.exports = (app) => {
 
     //---------------//
 
+    // Doc Category //
+
+    app.post('/DocCategory',
+    DocCategoryController.post)
+
+    app.get('/DocCategory',
+    DocCategoryController.index)
+
+    app.get('/DocCategory/:docCategoryId',
+    DocCategoryController.show)
+
+    app.delete('/DocCategory/:docCategoryId',
+    DocCategoryController.kill)
     //   uploads  //
 
     app.use('/static',express.static(path.join(__dirname,"static")))
@@ -281,6 +338,66 @@ module.exports = (app) => {
 
     })
 
+
+
+    // Documents //
+
+    app.post('/Documents',
+    DocumentController.post)
+
+    app.get('/Documents',
+    DocumentController.index)
+
+    app.get('/Documents/:documentId',
+    DocumentController.show)
+
+    app.delete('/Documents/:documentId',
+    DocumentController.kill)
+
+    app.put('/Documents/:documentId',
+    DocumentController.put)
+
+    
+    const DocumentStorage = multer.diskStorage({
+      destination: './documents/',
+      filename: function (req, file, cb) {
+        console.log(file)
+        cb(null,file.originalname)
+      }
+    })
+    const documentUpload = multer ({storage:DocumentStorage})
+
+    app.post('/DocumentsUploads',documentUpload.single('file'),async (req, res) => {
+
+      
+      try {
+        console.log(req.body.Name)
+        res.send({
+          file: req.file
+        })
+      } catch (err) {
+        res.status(500).send({
+          error: 'WRONG'
+        })
+      }
+    })
+   
+    app.get('/DocumentsUploads/:uploadFile', async (req,res) => {
+      const r = fs.createReadStream(`documents/${req.params.uploadFile}`) // or any other way to get a readable stream
+      console.log('----------------------',req.params.uploadFile)
+      const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
+      stream.pipeline(
+      r,
+      ps, // <---- this makes a trick with stream error handling
+      (err) => {
+        if (err) {
+          console.log(err) // No such file or any other kind of error
+          return res.sendStatus(400); 
+        }
+      })
+      ps.pipe(res) // <---- this makes a trick with stream error handling
+
+    })
     app.get('/', (req,res) => {
       res.sendFile(path.join(__dirname, '../beesys/build/index.html'));
     });

@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
         employee: DataTypes.STRING,
         milage: DataTypes.STRING,
         addedBy: DataTypes.STRING,
+        registrationUpload: DataTypes.STRING,
+        insuranceUpload: DataTypes.STRING,
+        stickerUpload: DataTypes.STRING,
+        other1Upload: DataTypes.STRING,
+        other2Upload: DataTypes.STRING,
+        other3Upload: DataTypes.STRING,
     })
     return Car
   }

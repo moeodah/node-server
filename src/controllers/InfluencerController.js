@@ -23,7 +23,7 @@ module.exports = {
       res.send(influencer)
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the songs'
+        error: 'an error has occured trying to show the influencers'
       })
     }
   },
@@ -33,7 +33,7 @@ module.exports = {
       influencer.destroy();
 
     }catch(err){
-      error:'No employee to delete'
+      error:'No Influencer to delete'
     }
   },
   async post (req, res) {
@@ -48,5 +48,19 @@ module.exports = {
         error: 'WRONG'
       })
     }
-  }
+  },
+  async put (req, res) {
+    try {
+      await Influencer.update(req.body, {
+        where: {
+          id: req.params.influencerId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to update the Influencer'
+      })
+    }
+  },
 }
